@@ -15,7 +15,7 @@
 
 
 # %% [markdown] jupyter={"source_hidden": true}
-# # SEGY to Vector DataFrames and Back
+# # SEG-Y to Vector DataFrames and Back
 #
 # The connection of segysak to `xarray` greatly simplifies the process of vectorising segy 3D data and returning it to SEGY. To do this, one can use the close relationship between `pandas` and `xarray`.
 #
@@ -43,7 +43,7 @@ volve_3d_df = volve_3d.to_dataframe()
 display(volve_3d_df)
 
 # %% [markdown]
-# We can remove the multi-index by resetting the index of the DataFrame. Vectorized workflows such as machine learning and then be easily applied to the DataFrame.
+# We can remove the multi-index by resetting the index of the DataFrame. Vectorized workflows such as machine learning can then be easily applied to the DataFrame.
 
 # %%
 volve_3d_df_reindex = volve_3d_df.reset_index()
@@ -62,7 +62,7 @@ display(volve_3d_ds)
 
 # %% [markdown]
 # The resulting dataset requires some changes to make it compatible again for export to SEGY.
-# Firstly, the attributes need to be set. The simplest way is to copy these from the original SEGY input. Otherwise they can be set manually. `segysak` specifically needs the `sample_rate` and the `coord_scalar` attributes.
+# Firstly, the attributes need to be set. The simplest way is to copy these from the original SEG-Y input. Otherwise they can be set manually. `segysak` specifically needs the `sample_rate` and the `coord_scalar` attributes.
 
 # %%
 volve_3d_ds.attrs = volve_3d.attrs

@@ -9,7 +9,7 @@ multi-core and multi-node operations using ``dask`` as well as important feature
 such as labelled axes and coordinates.
 
 This specification is not meant to be prescriptive but outlines some basic
-requirements for ``xarray`` datasets to work with *SEGYSAK* functionality.
+requirements for ``xarray`` datasets to work with *SEGY-SAK* functionality.
 
 *SEGY-SAK* uses the convention ``.seisnc`` for the suffix on NETCDF4 files it
 creates. These files are datasets with specific 1D and 2D coordiates and have a
@@ -36,7 +36,7 @@ the bins of 3D data. Vertical dimensions are ``twt`` and ``depth``. A typical
 2D and 2D Gathers
 ^^^^^^^^^^^^^^^^^
 
-For 2D data SEGY-SAK uses the dimensino labels ``cdp`` and ``offset``. This allows
+For 2D data SEGY-SAK uses the dimension labels ``cdp`` and ``offset``. This allows
 the package to distinguish between 2D and 3D data to allow automation on saving
 and convience wrappers. The same vertical dimensions apply as for 3D.
 A typical ``xarray`` in 2D format would return
@@ -52,7 +52,7 @@ Coordinates
 ^^^^^^^^^^^^
 
 If the ``cdpx`` and ``cdpy`` byte locations are specified during loading the
-SEGY the coordinates will be populated from the headers with the variable names
+SEG-Y the coordinates will be populated from the headers with the variable names
 ``cdp_x`` and ``cdp_y``. These will have dimensions equivalent to the horizontal
 dimensions of the data (``iline``, ``xline`` for 3D and ``cdp`` for 2D).
 
@@ -74,5 +74,5 @@ following attributes are extracted or reserved for use by ``SEGY-SAK``.
    and ``d3_domain``
  * ``datatype`` the data type e.g. amplitude, velocity, attribute
  * ``percentiles`` this is an array of approximate percentile values created during
-   scanning from SEGY. Primarily this is useful for plotting by limiting the dynamic
+   scanning from SEG-Y. Primarily this is useful for plotting by limiting the dynamic
    range of the display. The percentiles are in percent 0, 0.1, 10, 50, 90, 99.9 & 100.

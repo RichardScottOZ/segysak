@@ -17,7 +17,7 @@
 # %% [markdown]
 # # SEGY-SAK Basics
 #
-# **segysak** offers a number of utilities to create and load seismic data using `xarray` and `segyio`. In general **segysak** uses `xarray.Dataset` to store the data and provides and interface to additional seismic specific functionality by adding the `.seis` and `.seisio` names-spaces to an `xarray.Dataset` (just `dataset` from now on). That sounds complicated but let us walk through some examples together.
+# **segysak** offers a number of utilities to create and load seismic data using `xarray` and `segyio`. In general **segysak** uses `xarray.Dataset` to store the data and provides an interface to additional seismic specific functionality by adding the `.seis` and `.seisio` names-spaces to an `xarray.Dataset` (just `dataset` from now on). That sounds complicated but let us walk through some examples together.
 
 # %% [markdown]
 # ## Creating empty 3D geometry
@@ -51,7 +51,7 @@ new_seisnc
 # %% [markdown]
 # ## Dimension based selection and transformation
 #
-# As you can see form the print out of the previous cell, we have three dimensions in this dataset. They are `iline`, `xline` and `twt` (although the order, number and names might change depending on the make up of our volume). The ordering isn't import to `xarray` because it uses labels, and accessing data is done using these labels rather than indexing directly into the data like `numpy`. `xarray` also makes it further convient by allowing us to select based on the dimension values using the `.sel` method with tools for selecting nearest or ranges as well. If necessary you can also select by index using the `.isel` method.
+# As you can see from the print out of the previous cell, we have three dimensions in this dataset. They are `iline`, `xline` and `twt` (although the order, number and names might change depending on the make up of our volume). The ordering isn't import to `xarray` because it uses labels, and accessing data is done using these labels rather than indexing directly into the data like `numpy`. `xarray` also makes it further convenient by allowing us to select based on the dimension values using the `.sel` method with tools for selecting nearest or ranges as well. If necessary you can also select by index using the `.isel` method.
 
 # %%
 # select iline value 9
@@ -81,7 +81,7 @@ xarray_selection
 # %% [markdown]
 # ## Coordinates Selection
 #
-# Usually for seismic the X and Y coordinates labelled `cdp_x` and `cdp_y` in seisnc are rotated and scaled relative to the grid geometry and now seisnc dimensions `iline`, `xline` and `twt`. For `xarray` this means you cannot use the `.sel` and `.isel` methods to select data for `cdp_x` and `cdp_y`. **segysak** is developing more natural interfaces to access data using X and Y coordinates and this is available thorugh the `seisnc.seis` namespace, covered in other examples.
+# Usually for seismic the X and Y coordinates labelled `cdp_x` and `cdp_y` in seisnc are rotated and scaled relative to the grid geometry and now seisnc dimensions `iline`, `xline` and `twt`. For `xarray` this means you cannot use the `.sel` and `.isel` methods to select data for `cdp_x` and `cdp_y`. **segysak** is developing more natural interfaces to access data using X and Y coordinates and this is available through the `seisnc.seis` namespace, covered in other examples.
 
 # %% [markdown]
 # ## Adding data to an empty seisnc
@@ -99,7 +99,7 @@ print("keys:", dkeys, "sizes:", dsize)
 # %%
 import numpy as np
 
-# create some to data the dimension shapes
+# create some data and the dimension shapes
 xline_, iline_, twt_ = np.meshgrid(new_seisnc.iline, new_seisnc.xline, new_seisnc.twt)
 data = np.sin(twt_ / 100) + 2 * iline_ * np.cos(xline_ / 20 + 10)
 
@@ -149,7 +149,7 @@ print(new_seisnc.data.max())
 print(np.sum(new_seisnc.data))
 
 # %% [markdown]
-# With `xarray` you can apply operations along 1 or more dimensions to reduce the dataset. This could be useful for colapsing gathers for example by applying the mean along the `offset` dimension. Here we combine a `numpy` operation `abs` which returns an `DataArray` and then sum along the time dimension to create a grid without the time dimension.
+# With `xarray` you can apply operations along 1 or more dimensions to reduce the dataset. This could be useful for collapsing gathers for example by applying the mean along the `offset` dimension. Here we combine a `numpy` operation `abs` which returns an `DataArray` and then sum along the time dimension to create a grid without the time dimension.
 # Along with using masks this is fundamental building block for performing horizonal sculpting.
 
 # %%

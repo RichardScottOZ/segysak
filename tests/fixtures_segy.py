@@ -15,8 +15,9 @@ TEST_SEGY_SIZE = 10
 TEST_SEGY_REG = "test_reg.segy"
 TEST_SEGY_SKEW = "test_skew.segy"
 
-TEST_DATA_SEGYIO = pathlib.Path(__file__).parent.absolute() / "test-data-segyio"
-TEST_DATA_SEGYIO = pathlib.Path(TEST_DATA_SEGYIO)
+TEST_DATA_PATH = pathlib.Path(__file__).parent.absolute()
+TEST_DATA_SEGYIO = TEST_DATA_PATH / "test-data-segyio"
+TEST_DATA_SEGYSAK = TEST_DATA_PATH / "test-data-segysak"
 
 TEST_FILES_SEGYIO_3D = [
     ("acute-small.sgy", {"iline": 189, "xline": 193}),
@@ -36,10 +37,13 @@ TEST_FILES_SEGYIO_3D = [
 ]
 
 TEST_FILES_SEGYIO_3DG = [
+    ("small-ps-dec-il-inc-xl-off.sgy", {"iline": 189, "xline": 193, "offset": 37}),
+    ("small-ps-dec-il-off-inc-xl.sgy", {"iline": 189, "xline": 193, "offset": 37}),
+    ("small-ps-dec-il-xl-inc-off.sgy", {"iline": 189, "xline": 193, "offset": 37}),
+    ("small-ps-dec-il-xl-off.sgy", {"iline": 189, "xline": 193, "offset": 37}),
     ("small-ps-dec-off-inc-il-xl.sgy", {"iline": 189, "xline": 193, "offset": 37}),
     ("small-ps-dec-xl-inc-il-off.sgy", {"iline": 189, "xline": 193, "offset": 37}),
-    ("small-ps.sgy", {"iline": 189, "xline": 193, "offset": 37}),
-    ("small-ps-dec-il-xl-off.sgy", {"iline": 189, "xline": 193, "offset": 37}),
+    ("small-ps-dec-xl-off-inc-il.sgy", {"iline": 189, "xline": 193, "offset": 37}),
     ("small-ps.sgy", {"iline": 189, "xline": 193, "offset": 37}),
 ]
 
@@ -187,3 +191,10 @@ def segyio3dps_test_files(request):
 def segyio_nohead_test_files(request):
     file, segyio_kwargs = request.param
     return (file, segyio_kwargs)
+
+
+@pytest.fixture(
+    scope="session",
+)
+def segy_with_nonascii_text():
+    return TEST_DATA_SEGYSAK / "f3-ebcidctest.sgy"
